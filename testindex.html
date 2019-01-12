@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>List Test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="search-form">
+    <ul class="listItems">
+    </ul>
+  </div>
+<script type="text/javascipt" src="test.json"></script>
+<script>
+//assignig data url to variavle
+const testData = "https://raw.githubusercontent.com/sBush265/JSON/master/test.JSON";
+//getting our dom element
+const listItems = document.querySelector('.listItems');
+
+//creating array
+const testTitles = [];
+//fetching data, pushing to array, calling our display function
+fetch(testData)
+      .then(blob => blob.json())
+      .then(data => testTitles.push(...data))
+      .then(displayTestData);
+
+//function to map each item from the array
+function displayTestData() {
+  //console.log('im running')
+  const html = testTitles.map(title => {
+    return `
+      <li>
+        <span class="name">${title.title}</span>
+        <span class="description">${title.description}</span>
+      </li>
+    `
+  }).join('');
+  //adding items to our html
+  listItems.innerHTML = html;
+}
+
+</script>
+</body>
+</html>
